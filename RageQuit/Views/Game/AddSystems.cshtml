@@ -1,0 +1,287 @@
+﻿@model RageQuit.Models.ViewModels.Game.SelectGameSystemsViewModel
+
+@{
+    ViewBag.Title = "AddSystems";
+}
+
+<h2>Edit Systems</h2>
+
+<h1>@Model.id</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+        <h4>Nintendo</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnSwitch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnSwitch)
+                    @Html.ValidationMessageFor(model => model.isOnSwitch, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnNew3DS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnNew3DS)
+                    @Html.ValidationMessageFor(model => model.isOnNew3DS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnWiiU, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnWiiU)
+                    @Html.ValidationMessageFor(model => model.isOnWiiU, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnWii, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnWii)
+                    @Html.ValidationMessageFor(model => model.isOnWii, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOn3DS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOn3DS)
+                    @Html.ValidationMessageFor(model => model.isOn3DS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnDS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnDS)
+                    @Html.ValidationMessageFor(model => model.isOnDS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnGameboyAdvanced, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnGameboyAdvanced)
+                    @Html.ValidationMessageFor(model => model.isOnGameboyAdvanced, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnGameCube, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnGameCube)
+                    @Html.ValidationMessageFor(model => model.isOnGameCube, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnNintendo64, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnNintendo64)
+                    @Html.ValidationMessageFor(model => model.isOnNintendo64, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnGameboy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnGameboy)
+                    @Html.ValidationMessageFor(model => model.isOnGameboy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>Microsoft</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnXboxOne, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnXboxOne)
+                    @Html.ValidationMessageFor(model => model.isOnXboxOne, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPC)
+                    @Html.ValidationMessageFor(model => model.isOnPC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnXbox360, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnXbox360)
+                    @Html.ValidationMessageFor(model => model.isOnXbox360, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnXbox, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnXbox)
+                    @Html.ValidationMessageFor(model => model.isOnXbox, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>Sony</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPS4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPS4)
+                    @Html.ValidationMessageFor(model => model.isOnPS4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPS3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPS3)
+                    @Html.ValidationMessageFor(model => model.isOnPS3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnVita, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnVita)
+                    @Html.ValidationMessageFor(model => model.isOnVita, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPSP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPSP)
+                    @Html.ValidationMessageFor(model => model.isOnPSP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPlaystation2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPlaystation2)
+                    @Html.ValidationMessageFor(model => model.isOnPlaystation2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnPlaystation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnPlaystation)
+                    @Html.ValidationMessageFor(model => model.isOnPlaystation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>Apple</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnMac, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnMac)
+                    @Html.ValidationMessageFor(model => model.isOnMac, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnIPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnIPhone)
+                    @Html.ValidationMessageFor(model => model.isOnIPhone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>Google</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnAndroid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnAndroid)
+                    @Html.ValidationMessageFor(model => model.isOnAndroid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>Nokia</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnNGage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnNGage)
+                    @Html.ValidationMessageFor(model => model.isOnNGage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <h4>SEGA</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.isOnDreamcast, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isOnDreamcast)
+                    @Html.ValidationMessageFor(model => model.isOnDreamcast, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

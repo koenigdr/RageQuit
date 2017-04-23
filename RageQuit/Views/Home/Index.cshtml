@@ -1,0 +1,82 @@
+﻿@model RageQuit.Models.ViewModels.Home.HomePageViewModel
+
+@{
+    ViewBag.Title = "Rage Quit";
+}
+
+<h2>Rage Quit</h2>
+
+<div class="container-fluid">
+    <div class="row content">
+        <h2>Highest Rated Games</h2>
+        <table class="table">
+            <tr>
+                <th>Game</th>
+                <th>Rating</th>
+                <th>Release Date</th>
+            </tr>
+            @for (int i = 0; i < Model.ratedList.Count; i++)
+            {
+                var game = Model.ratedList[i];
+                <tr>
+                    <td>
+                        @Html.ActionLink(game.title, "ViewGame", "Game", new { id = game.id }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(gameItem => game.rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(gameItem => game.releaseDate)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="row content">
+        <h2>Upcoming Releases</h2>
+        <table class="table">
+            <tr>
+                <th>Game</th>
+                <th>Release Date</th>
+            </tr>
+            @for (int i = 0; i < Model.upcomingList.Count; i++)
+            {
+                var game = Model.upcomingList[i];
+                <tr>
+                    <td>
+                        @Html.ActionLink(game.title, "ViewGame", "Game", new { id = game.id }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(gameItem => game.releaseDate)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="row content">
+        <h2>Most Rated Games</h2>
+        <table class="table">
+            <tr>
+                <th>Game</th>
+                <th>Rating</th>
+                <th>Release Date</th>
+            </tr>
+            @for (int i = 0; i < Model.popularList.Count; i++)
+            {
+                var game = Model.popularList[i];
+                <tr>
+                    <td>
+                        @Html.ActionLink(game.title, "ViewGame", "Game", new { id = game.id }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(gameItem => game.rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(gameItem => game.releaseDate)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

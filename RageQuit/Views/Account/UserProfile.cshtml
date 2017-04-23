@@ -1,0 +1,71 @@
+﻿@model RageQuit.Models.ViewModels.Account.UserProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<div class="container-fluid">
+    <div class="row content">
+        <h2>@Model.username</h2>
+        <div class="col-sm-3">
+            <img src="@Model.profilePicture" alt="Profile Picture" height="250" width="250"/>
+            @if (User.Identity.Name == Model.username)
+            {
+                <li class="list-group-item">@Html.ActionLink("Edit Profile Picture", "EditProfilePicture", "Account")</li>
+            }        
+        </div>
+        <div class="col-sm-9">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.dateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <span class="glyphicon glyphicon-time"></span>@Model.dateCreated
+                </li>
+                @if (User.Identity.Name == Model.username)
+                {
+                    <li class="list-group-item">@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+                    <li class="list-group-item">@Ajax.ActionLink("Delete Account", "DeleteUser", "Account", new AjaxOptions { HttpMethod = "POST", })</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th>Game</th>
+                <th>Comment</th>
+                <th>Rating</th>
+                @if(User.Identity.Name == Model.username)
+                {
+                    <th>Delete</th>
+                }
+            </tr>
+            @foreach (var item in Model.commentVM)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.gameTitle, "ViewGame", "Game", new { id = item.gameId }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.comment)
+                    </td>
+                    <td>
+                        @if (item.isLiked)
+                        {
+                            <span class="glyphicon glyphicon-thumbs-up success"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-thumbs-down danger"></span>
+                        }
+                    </td>
+                    @if(User.Identity.Name == Model.username)
+                    {
+                        <td>
+                            <a href="@Ajax.ActionLink("Delete", "Delete", "Comment", new { commentId = item.id }, new AjaxOptions { HttpMethod = "POST", })"</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>

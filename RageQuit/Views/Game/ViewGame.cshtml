@@ -1,0 +1,144 @@
+﻿@model RageQuit.Models.ViewModels.Game.GameViewModel
+
+@{
+    ViewBag.Title = "ViewGame";
+}
+
+<div class="container-fluid">
+    <div class="row content">
+        <h2>@Model.title</h2>
+        <div class="col-sm-3">
+            <img src="@Model.coverArt" alt="Profile Picture" height="200" width="200" />
+            @if (Model.hasReleased && Model.rating != 0)
+            {
+                <div class="progress">
+                    @if (Model.rating >= 75)
+                    {
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Model.rating" aria-valuemin="0" aria-valuemax="100" style="width:@Model.rating%">
+                            @Model.rating%
+                        </div>
+                    }
+                    else if (Model.rating >= 60)
+                    {
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.rating" aria-valuemin="0" aria-valuemax="100" style="width:@Model.rating%">
+                            @Model.rating%
+                        </div>
+                    }
+                    else if (Model.rating >= 0)
+                    {
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="@Model.rating" aria-valuemin="0" aria-valuemax="100" style="width:@Model.rating%">
+                            @Model.rating%
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-sm-9">
+            <ul class="list-group">
+                <li class="list-group-item">@Model.description</li>
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.publisher, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Model.publisher
+                </li>
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.developer, htmlAttributes: new { @class = "control-label col-md-2" })    
+                    @Model.developer
+                </li>
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.releaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <span class="glyphicon glyphicon-time"></span>@Model.releaseDate
+                </li>
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Model.genres
+                </li>
+                <li class="list-group-item">
+                    @Html.LabelFor(model => model.systems, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Model.systems
+                </li>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <li class="list-group-item">@Html.ActionLink("Edit", "Edit", "Game", new { id = @Model.id }, null )</li>
+                    <li class="list-group-item">@Ajax.ActionLink("Delete", "Delete", "Game", new { id = @Model.id }, new AjaxOptions { HttpMethod = "POST", })</li>
+                }
+            </ul>
+        </div>
+    </div>
+    @if (Model.hasReleased)
+    {
+        <div> 
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (Model.userHasRated)
+            {
+                if (Model.userLiked)
+                {
+                    <a href="#" class="btn btn-success btn-lg">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </a>
+                    <a href="@Url.Action("Update", "Comment", new { liked = false, gmId = Model.id }, null)" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Update", "Comment", new { liked = true, gmId = Model.id }, null)" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </a>
+                    <a href="#" class="btn btn-danger btn-lg">
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                    </a>
+                }
+            }
+            else
+            {
+                <a href="@Url.Action("Create", "Comment", new { liked = true, gmId = Model.id }, null)" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                </a>
+                <a href="@Url.Action("Create", "Comment", new { liked = true, gameId = Model.id }, null)" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                </a>
+            }
+        }
+        else
+        {
+            <a href="@Url.Action("Login", "Account")" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+            </a>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+            </a>
+        }
+        </div>
+        <div>
+            <table class="table">
+                <tr>
+                    <th>User</th>
+                    <th>Comment</th>
+                    <th>Rating</th>
+                </tr>
+                @foreach (var item in Model.commentVM)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.username, "UserProfile", "Account", new { id = item.userId }, null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.comment)
+                        </td>
+                        <td>
+                            @if (item.isLiked)
+                            {
+                                <span class="glyphicon glyphicon-thumbs-up success"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-thumbs-down danger"></span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</div>
