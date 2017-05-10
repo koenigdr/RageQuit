@@ -1,4 +1,5 @@
 ﻿using RageQuit.Models.Data;
+using RageQuit.Models.Security;
 using RageQuit.Models.ViewModels.Account;
 using RageQuit.Models.ViewModels.Comment;
 using System;
@@ -40,8 +41,8 @@ namespace RageQuit.Controllers
             {
                 if(context.Users.Any(row => row.username.Equals(userLogin.username)))
                 {
-                    User checkUsers = context.Users.First(row => row.username.Equals(userLogin.username) && row.isActive);
-                    if(checkUsers.password.Equals(userLogin.password))
+                    User checkUser = context.Users.First(row => row.username.Equals(userLogin.username) && row.isActive);
+                    if(Helper.VerifyHash(userLogin.password, "SHA512", checkUser.password))
                     {
                         FormsAuthentication.SetAuthCookie(userLogin.username, userLogin.rememberMe);
                         return Redirect(FormsAuthentication.GetRedirectUrl(userLogin.username, userLogin.rememberMe));
@@ -81,9 +82,19 @@ namespace RageQuit.Controllers
                 ModelState.AddModelError("", "Username required");
                 return View(newUser);
             }
+            if(newUser.username.Count() > 25)
+            {
+                ModelState.AddModelError("", "Username must be less than 25 characters");
+                return View(newUser);
+            }
             if (string.IsNullOrWhiteSpace(newUser.password))
             {
                 ModelState.AddModelError("", "Password required");
+                return View(newUser);
+            }
+            if(newUser.password.Count() > 25)
+            {
+                ModelState.AddModelError("", "Password must be less than 25 characters");
                 return View(newUser);
             }
             if (!newUser.password.Equals(newUser.confirmPassword))
@@ -93,21 +104,17 @@ namespace RageQuit.Controllers
             }
             using (RageQuitContext context = new RageQuitContext())
             {
-                if (context.Users.Any(row => row.username.Equals(newUser.username)))
+                if (context.Users.Any(row => row.username.Equals(newUser.username) && row.isActive))
                 {
-                   User existingUser = context.Users.FirstOrDefault(row => row.username.Equals(newUser.username));
-                   if (existingUser.isActive)
-                   {
-                       ModelState.AddModelError("", "Username already exisits, please pick new Username");
-                       newUser.username = "";
-                       return View(newUser);
-                   }
+                    ModelState.AddModelError("", "Username already exisits, please pick new Username");
+                    newUser.username = "";
+                    return View(newUser);
                 }
                 User newUserDTO = new User()
                 {
                     id = context.Users.Count(),
                     username = newUser.username,
-                    password = newUser.password,
+                    password = Helper.ComputeHash(newUser.password, "SHA512", null),
                     profilePicture = null,
                     dateCreated = DateTime.Now,
                     isAdmin = false,
