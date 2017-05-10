@@ -1,5 +1,4 @@
 ﻿using RageQuit.Models.Data;
-using RageQuit.Models.Security;
 using RageQuit.Models.ViewModels.Account;
 using RageQuit.Models.ViewModels.Comment;
 using System;
@@ -42,7 +41,7 @@ namespace RageQuit.Controllers
                 if(context.Users.Any(row => row.username.Equals(userLogin.username)))
                 {
                     User checkUser = context.Users.First(row => row.username.Equals(userLogin.username) && row.isActive);
-                    if(Helper.VerifyHash(userLogin.password, "SHA512", checkUser.password))
+                    if(HashHelper.VerifyHash(userLogin.password, "SHA512", checkUser.password))
                     {
                         FormsAuthentication.SetAuthCookie(userLogin.username, userLogin.rememberMe);
                         return Redirect(FormsAuthentication.GetRedirectUrl(userLogin.username, userLogin.rememberMe));
@@ -114,7 +113,7 @@ namespace RageQuit.Controllers
                 {
                     id = context.Users.Count(),
                     username = newUser.username,
-                    password = Helper.ComputeHash(newUser.password, "SHA512", null),
+                    password = HashHelper.ComputeHash(newUser.password, "SHA512", null),
                     profilePicture = null,
                     dateCreated = DateTime.Now,
                     isAdmin = false,

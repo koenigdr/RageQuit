@@ -23,7 +23,14 @@
                         @Html.ActionLink(game.title, "ViewGame", "Game", new { id = game.id }, null)
                     </td>
                     <td>
-                        @Html.DisplayFor(gameItem => game.rating)
+                        @if (game.rating >= 0)
+                        {
+                            @Html.DisplayFor(gameItem => game.rating)
+                        }
+                        else
+                        {
+                            @Html.Display("Not Rated");
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(gameItem => game.releaseDate)
